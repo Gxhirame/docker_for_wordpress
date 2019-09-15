@@ -14,7 +14,7 @@ services:
     environment:
       - WORDPRESS_DB_NAME=${MYSQL_DB_NAME}
       - WORDPRESS_DB_HOST=${MYSQL_HOST}
-#      - WORDPRESS_DB_USER=${MYSQL_USER}
+      - WORDPRESS_DB_USER=${WORDPRESS_DB_USER}
       - WORDPRESS_DB_PASSWORD=${MYSQL_ROOT_PASSWORD}
 #      - WORDPRESS_TABLE_PREFIX=
 #      - WORDPRESS_AUTH_KEY=
@@ -42,6 +42,8 @@ services:
         - MYSQL_VERSION=${MYSQL_VERSION}
     volumes:
       - ./.Docker/mysql/data:/var/lib/mysql
+      - ./.Docker/mysql/mysql.cnf:/etc/mysql/conf.d/mysql.cnf
+      - ./.Docker/mysql/logs:/var/log/mysql
     environment:
       - MYSQL_DATABASE=${MYSQL_DB_NAME}
       - MYSQL_USER=${MYSQL_USER}
@@ -50,7 +52,3 @@ services:
     privileged: true
     ports:
       - ${MYSQL_PORT}:3306
-
-#volumes:
-#  wordpress:
-#  mysql:
